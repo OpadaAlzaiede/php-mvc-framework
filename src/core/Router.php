@@ -4,7 +4,7 @@ class Router
 {
     private static $router;
 
-    private final function __construct(protected array $routes = [])
+    private function __construct(protected array $routes = [])
     {
     }
 
@@ -40,30 +40,29 @@ class Router
 
     public function route(string $method, string $uri): bool {
 
-        if(!isset($this->routes[$method])) abort("Route not found", 404);
+        $result = dataGet($this->routes, $method .".". $uri);
 
-        $result = $this->routes[$method][$uri];
+        if(!$result) abort("Route not found", 404);
 
         $controller = $result['controller'];
         $function = $result['method'];
 
         if(class_exists($controller)) {
-            try {
-                $controllerInstance = new $controller();
-                if(method_exists($controllerInstance, $function)) {
 
-                    $controllerInstance->$function();
-                    return true;
-                } else {
-                    abort("Method not found", 500);
-                }
+            $controllerInstance = new $controller();
 
-            }catch(\Exception $e) {
+            if(method_exists($controllerInstance, $function)) {
+
+                $controllerInstance->$function();
+                return true;
+
+            } else {
+
                 abort("No method {$function} on class {$controller}", 500);
             }
         }
 
-        return true;
+        return false;
     }
 
     public function getRoutes(): array {

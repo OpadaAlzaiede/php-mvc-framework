@@ -6,16 +6,16 @@ class HomeController {
 
     public function home() {
 
-        echo "Home";
+        echo "Welcome to home page";
     }
 
     public function about() {
 
-        echo "About";
+        echo "Welcome to about page";
     }
 
     public function contact() {
 
-        echo "Contact";
+        echo "Welcome to contact page";
     }
 }
