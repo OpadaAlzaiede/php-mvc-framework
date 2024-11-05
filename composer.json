@@ -1,0 +1,16 @@
+{
+    "name": "obadaalzidi/php-framework",
+    "description": "A simple PHP framework",
+    "authors": [
+        {
+            "name": "obada",
+            "email": "opadaalziede@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "require": {}
+}
