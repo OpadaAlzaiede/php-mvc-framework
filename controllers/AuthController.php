@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\core\Controller;
+use app\core\http\Request;
+use app\models\User;
 
 class AuthController extends Controller {
 
@@ -19,4 +21,18 @@ class AuthController extends Controller {
 
         return $this->render('auth\register');
     }
-}
+
+    public function register(Request $request) {
+
+        $user = new User;
+
+        $user->loadData($request->getBody());
+
+        if($user->validate() && $user->register()) {
+            
+            return 'success';
+        }
+
+        var_dump($user->errors);
+    }
+}   
